@@ -247,38 +247,14 @@ int i2c_check_address(const int sda,
 int main(const int argc, const char **argv) {
   i2c_init(SDA_PIN, SCL_PIN); 
 
-  //size_t size = 4;
-  //uint8_t addresses[4] = {0x48, 0x58, 0x77, 0x10}; 
+  size_t size = 4;
+  uint8_t addresses[4] = {0x48, 0x58, 0x77, 0x10}; 
  
-  //for (int i = 0; i < size; i++) {
-  //  uint8_t address = (addresses[i] << 1 | 1);
-  //  printf("Address: %08x\n", address);
-  //  i2c_check_address(SDA_PIN, SCL_PIN, address);
-  //}
-
-  // Check try reading serial number of BMP280
-  
-  uint8_t commands[2] = {0x77 << 1 | 0, 0xD0};
-  i2c_start(SDA_PIN, SCL_PIN);
-//  for (int i = 0; i < 2; i++) {
-//    int err = i2c_write_byte(SDA_PIN, SCL_PIN, commands[i]);
-//  }
-  i2c_write_bytes(SDA_PIN, SCL_PIN, commands, 3); 
-  _i2c_pull_low(SCL_PIN);
-  _i2c_pull_low(SDA_PIN);
-  i2c_stop(SDA_PIN, SCL_PIN);
-//  bcm2835_delay(1);
-  uint8_t response[1];
-  i2c_start(SDA_PIN, SCL_PIN);
-  uint8_t command = 0x77 << 1 | 1;
-  i2c_write_byte(SDA_PIN, SCL_PIN, command);
-  i2c_read_bytes(SDA_PIN, SCL_PIN, response, 1);
-  i2c_stop(SDA_PIN, SCL_PIN);
-  fprintf(stdout, "%s", "Serial ID: ");
-  for (int i = 0; i < 1; i++) {
-    fprintf(stdout, "0x%02x", response[i]);
+  for (int i = 0; i < size; i++) {
+    uint8_t address = (addresses[i] << 1 | 1);
+    printf("Address: %08x\n", address);
+    i2c_check_address(SDA_PIN, SCL_PIN, address);
   }
-  fprintf(stdout, "%s", "\n");
 
   i2c_deinit();
 }
