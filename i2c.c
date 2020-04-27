@@ -146,7 +146,6 @@ int i2c_write_bit(const int sda,
   _i2c_set_floating_wait(scl);
 
   _i2c_pull_low(scl);
-  //_i2c_pull_low(sda);
   return 0;
 }
 
@@ -160,7 +159,6 @@ int i2c_read_bit(const int sda,
   _i2c_set_floating_wait(scl);
   int ret = bcm2835_gpio_lev(sda);
   _i2c_pull_low(scl);
-  //_i2c_pull_low(sda);
   return ret;
 }
 
